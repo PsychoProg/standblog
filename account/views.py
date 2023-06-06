@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 
 def login_view(request):
@@ -20,5 +20,14 @@ def login_view(request):
 
     # render the login form if request is not POST.
     return render(request, 'account/login.html')
-    # context = {}
-    # return render(request, 'account/login.html', context)
+
+
+def logout_view(request):
+    """ log out user """
+    logout(request)
+    return redirect('home')
+
+
+def register_view(request):
+    """ user registration operation """
+    return render(request, 'account/register.html')
