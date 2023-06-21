@@ -97,13 +97,15 @@
 <div class="main-banner header-text">
     <div class="container-fluid">
         <div class="owl-banner owl-carousel">
+        {# display articles #}
             {% for article in articles %}
+
             <div class="item">
                 <img src="{{ article.image.url }}" alt="{{ article.title }}">
                 <div class="item-content">
                     <div class="main-content">
                         <div class="meta-category">
-                            <span>Test</span>
+                            <span>{{ article.category.first.title }}</span>
                         </div>
                         <a href="post-details.html"><h4>{{ article.title }}</h4></a>
                         <ul class="post-info">
