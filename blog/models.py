@@ -1,6 +1,8 @@
 from django.db import models
 # author from users
 from django.contrib.auth.models import User
+# import manager
+from . import managers
 
 
 class Category(models.Model):
@@ -25,6 +27,15 @@ class Article(models.Model):
     image = models.ImageField(upload_to="images/articles", help_text="choose an image in right size.")
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
+    status = models.BooleanField(default=False)
+
+    # Article objects
+    objects = managers.ArticleManager()
+
+    # rewriting get_queryset
+    # objects = models.Manager()
+    # custom_manager = managers.ArticleManager()
+
     # set articles on home app template
 
     def __str__(self):
