@@ -39,7 +39,7 @@ class Article(models.Model):
     # set articles on home app template
 
     def __str__(self):
-        return f"title: {self.title}"
+        return f"title: {self.title}, id: {self.id}"
 
     class Meta:
         verbose_name = "Article"
