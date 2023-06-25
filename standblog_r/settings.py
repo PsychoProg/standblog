@@ -44,6 +44,10 @@ INSTALLED_APPS = [
 
     # django cleanup
     'django_cleanup.apps.CleanupConfig',
+
+    # django active link
+    'active_link',
+
 ]
 
 MIDDLEWARE = [

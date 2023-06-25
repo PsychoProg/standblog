@@ -8,5 +8,8 @@ def home(request):
     # use querySet and filter
     # articles = Article.objects.filter(status=True)
     articles = Article.objects.publish()    # func name
-    context = {'articles': articles}
+    context = {
+        'articles': articles,
+        'navbar': 'home',
+    }
     return render(request, "home/index.html", context)

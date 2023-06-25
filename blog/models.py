@@ -3,6 +3,8 @@ from django.db import models
 from django.contrib.auth.models import User
 # import manager
 from . import managers
+from django.urls import reverse
+from django.utils.text import slugify
 
 
 class Category(models.Model):
@@ -28,6 +30,17 @@ class Article(models.Model):
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     status = models.BooleanField(default=False)
+    slug = models.SlugField(blank=True, unique=True)
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        """ generate slug """
+        self.slug = slugify(self.title)
+        super(Article, self).save()
+
+    def get_absolute_url(self):
+        """ absolute url """
+        # return reverse('blog:post_url', kwargs={'title': self.title})
+        return reverse('blog:post_url', kwargs={'slug': self.slug})
 
     # Article objects
     objects = managers.ArticleManager()
