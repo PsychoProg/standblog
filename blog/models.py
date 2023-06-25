@@ -57,3 +57,6 @@ class Article(models.Model):
     class Meta:
         verbose_name = "Article"
         verbose_name_plural = "Articles"
+        # order objects base on update date
+        # ordering = ('-created',)
+        ordering = ('-updated', '-created')
