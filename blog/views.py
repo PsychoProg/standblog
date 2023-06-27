@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Article, Category
+from django.core.paginator import Paginator
 
 
 def blog_view(request, slug):
@@ -16,9 +17,16 @@ def blog_view(request, slug):
 
 
 def post_list(request):
+    """ list articles with pagination """
+    # article = Article.objects.all()
     article = Article.objects.all()
+    page_num = request.GET.get('page')
+    paginator = Paginator(article, 2)
+    objects_list = paginator.get_page(page_num)
+
     context = {
-        'articles': article,
+        # 'articles': article,
+        'articles': objects_list,
         'navbar': 'post_list'
     }
     return render(request, 'blog/post-list.html', context)
