@@ -11,25 +11,25 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link {% if navbar == 'home' %}active{% endif %}"
+                        <a class="nav-link {% if request.resolver_match.url_name == 'home_url' %}active{% endif %}"
                            href="{% url 'home:home_url' %}">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  {% if navbar == 'about' %}active{% endif %}"
+                        <a class="nav-link  {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
                            href="about.html">About Us</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link  {% if navbar == 'post_list' %}active{% endif %}"
+                        <a class="nav-link  {% if request.resolver_match.url_name == 'post_list_url' %}active{% endif %}"
                            href="{% url 'blog:post_list_url' %}">Blog Entries</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  {% if navbar == 'post' %}active{% endif %}"
+                        <a class="nav-link  {% if request.resolver_match.url_name == 'post_url' %}active{% endif %}"
                            href="post-details.html">Post Details</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  {% if navbar == 'contact' %}active{% endif %}"
+                        <a class="nav-link  {% if request.resolver_match.url_name == 'contact' %}active{% endif %}"
                            href="contact.html">Contact Us</a>
                     </li>
                     {# show login button on navbar #}
