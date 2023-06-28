@@ -60,3 +60,22 @@ class Article(models.Model):
         # order objects base on update date
         # ordering = ('-created',)
         ordering = ('-updated', '-created')
+
+
+class Comment(models.Model):
+    """ handle comments and replies """
+    # ManyToONe (each Article has Many comments)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="comments")
+
+    # ManyToONe (each User has Many comments)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+
+    # Replies: each comments has many replies
+    # 'self' is an object of this class
+    parent = models.ForeignKey('self', on_delete=models.CASCADE,null=True, blank=True, related_name="replies")
+
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.body[:50]
