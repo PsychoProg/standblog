@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Article, Category
+from .models import Article, Category, Comment
 from django.core.paginator import Paginator
 
 
@@ -8,6 +8,13 @@ def blog_view(request, slug):
     # article = Article.objects.get(id=pk)
     article = get_object_or_404(Article, slug=slug)
     # recent_articles = Article.objects.all()[:2]
+
+    # comment form
+    if request.method == "POST":
+        body = request.POST.get('body')
+        # create a comment in db
+        Comment.objects.create(body=body, article=article, user=request.user)
+
     context = {
         'article': article,
         # 'recent_articles': recent_articles,
@@ -40,5 +47,19 @@ def category_detail(request, pk=None):
     context = {
         'articles': article,
         'navbar': 'post_list',
+    }
+    return render(request, 'blog/post-list.html', context)
+
+
+def search(request):
+    q = request.GET.get('q')
+    article = Article.objects.filter(title__icontains=q)
+    # pagination
+    page_num = request.GET.get('page')
+    paginator = Paginator(article, 1)
+    objects_list = paginator.get_page(page_num)
+
+    context = {
+        'articles': objects_list,
     }
     return render(request, 'blog/post-list.html', context)
