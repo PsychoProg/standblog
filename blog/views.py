@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Article, Category, Comment
 from django.core.paginator import Paginator
-
+from .forms import Contact
 
 def blog_view(request, slug):
     """ post details """
@@ -63,3 +63,9 @@ def search(request):
         'articles': objects_list,
     }
     return render(request, 'blog/post-list.html', context)
+
+
+def contact(request):
+    form = Contact()
+    context = {'forms': form}
+    return render(request, 'blog/contact.html', context)
