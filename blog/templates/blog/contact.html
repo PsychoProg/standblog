@@ -44,17 +44,38 @@
                                             {% csrf_token %}
                                             <div class="row">
 
+                                                <div class="col-lg-12">
+                                                    {% if form.non_field_errors %}
+                                                        <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+                                                    {% endif %}
+                                                </div>
+
                                                 <div class="col-md-6 col-sm-12">
                                                     <fieldset>
-{#                                                        <input name="email" type="text" id="email"#}
-{#                                                               placeholder="Your email" required="">#}
-                                                        {{ forms.email }}
+                                                        {% if form.email.errors %}
+                                                            <div class="alert alert-danger">{{ form.email.errors }}</div>
+                                                        {% endif %}
+
+                                                        {{ form.email }}
+                                                    </fieldset>
+                                                </div>
+
+                                                <div class="col-md-6 col-sm-12">
+                                                    <fieldset>
+                                                        {% if form.title.errors %}
+                                                            <div class="alert alert-danger">{{ form.title.errors }}</div>
+                                                        {% endif %}
+                                                        {{ form.title }}
                                                     </fieldset>
                                                 </div>
 
                                                 <div class="col-lg-12">
                                                     <fieldset>
-                                                        {{ forms.message }}
+                                                        {% if form.message.errors %}
+                                                            <div class="alert alert-danger">{{ form.message.errors }}</div>
+                                                        {% endif %}
+
+                                                        {{ form.message }}
                                                     </fieldset>
                                                 </div>
                                                 <div class="col-lg-12">

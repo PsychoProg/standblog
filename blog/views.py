@@ -1,7 +1,11 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from .models import Article, Category, Comment
+from django.urls import reverse
+
+from .models import Article, Category, Comment, Contact
 from django.core.paginator import Paginator
-from .forms import Contact
+from .forms import ContactForm
+
 
 def blog_view(request, slug):
     """ post details """
@@ -65,7 +69,23 @@ def search(request):
     return render(request, 'blog/post-list.html', context)
 
 
+#
 def contact(request):
-    form = Contact()
-    context = {'forms': form}
-    return render(request, 'blog/contact.html', context)
+    """ Contact-us page Comments """
+    if request.method == "POST":
+        # form = ContactForm(data=request.POST)
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # print(form.cleaned_data.get("message"))
+            # email = form.cleaned_data["email"]
+            # title = form.cleaned_data["title"]
+            # message = form.cleaned_data["message"]
+
+            form.save()
+            return HttpResponseRedirect(reverse('blog:contact_page_url'))
+            # create object in Contact model
+            # Contact.objects.create(email=email, title=title, message=message)
+    else:
+        form = ContactForm()
+
+    return render(request, 'blog/contact.html', {'form': form})
